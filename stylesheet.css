@@ -1,0 +1,57 @@
+/* stylesheet.css */
+
+.panel-label {
+    font-weight: bold;
+    font-size: 12px;
+    color: white;
+}
+
+.option-button {
+    border-radius: 4px;
+    padding: 4px 12px;
+    background-color: #3c3c3c; 
+    color: #ececec; 
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    user-select: none;
+}
+
+.option-button:hover {
+    background-color: #5555ff; 
+    color: white;
+}
+
+.option-button.active {
+    background-color: #6a6af4; 
+    color: white;
+}
+
+.option-button:disabled {
+    opacity: 0.5;
+}
+
+
+.no-row-hover {
+    transition: none;
+}
+
+
+.reset-btn {
+    padding: 0;
+    margin: 0;
+}
+
+
+.format-help-text {
+    font-size: 11px;
+    color: gray;
+    margin-top: 6px;
+}
+
+.show-day-switch {
+    
+}
+
+.linked {
+    spacing: 2px;
+}

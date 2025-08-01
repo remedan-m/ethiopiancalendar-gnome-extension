@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.ethiopiancalendar" path="/org/gnome/shell/extensions/ethiopiancalendar/">
+
+    <key name="position" type="i">
+      <default>2</default>
+      <summary>Panel Position</summary>
+      <description>Position of the calendar indicator on the GNOME panel:
+        0 = Far Left,
+        1 = Left,
+        2 = Center,
+        3 = Right,
+        4 = Far Right</description>
+    </key>
+
+    <key name="date-format" type="s">
+      <default>"{day} {month} {year}"</default>
+      <summary>Date Format</summary>
+      <description>Format string for displaying Ethiopian date. Supported tokens: {day}, {month}, {year}</description>
+    </key>
+
+    <key name="show-day" type="b">
+      <default>false</default>
+      <summary>Show Day of Week</summary>
+      <description>If true, display the day of the week in Amharic before the Ethiopian date on the panel.</description>
+    </key>
+
+  </schema>
+</schemalist>

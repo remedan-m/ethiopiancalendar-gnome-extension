@@ -1,0 +1,16 @@
+{
+  "uuid": "ethiopiancalendar@n3dir",
+  "name": "Ethiopian Calendar",
+  "description": "Display Ethiopian date with Amharic Language on the GNOME panel.",
+  "shell-version": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49"
+  ],
+  "version": 1,
+  "url": "https://github.com/remedan-m/ethiopiancalendar-gnome-extension",
+  "settings-schema": "org.gnome.shell.extensions.ethiopiancalendar",
+  "prefs": "prefs.js"
+}
