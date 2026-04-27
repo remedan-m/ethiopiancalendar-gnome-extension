@@ -3,7 +3,6 @@
   "name": "Ethiopian Calendar",
   "description": "Display Ethiopian date with Amharic Language on the GNOME panel.",
   "shell-version": [
-    "45",
     "46",
     "47",
     "48",
