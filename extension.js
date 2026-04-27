@@ -12,7 +12,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 const AmharicMonths = [
     "መስከረም", "ጥቅምት", "ኅዳር",
-    "ታህሳስ", "ትር", "የካቲት",
+    "ታህሳስ", "ጥር", "የካቲት",
     "መጋቢት", "ሚያዝያ", "ግንቦት",
     "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"
 ];
