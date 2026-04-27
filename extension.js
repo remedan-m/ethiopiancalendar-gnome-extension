@@ -92,6 +92,7 @@ class EthiopianCalendarIndicator extends PanelMenu.Button {
         this.add_child(this._label);
 
         this._timeoutId = 0;
+        this._connectedSignals = [];
 
         this._dateFormat = this._extension._settings.get_string('date-format');
 
@@ -132,13 +133,13 @@ class EthiopianCalendarIndicator extends PanelMenu.Button {
                     item.actor.add_style_class_name('popup-menu-item-checked');
 
                 // Update setting on activate
-                item.connect('activate', () => {
+                this._connect(item, 'activate', () => {
                     this._extension._settings.set_int('position', idx);
                     this._refreshPositionMenuItems();
                 });
 
                 // Prevent menu from closing on click
-                item.actor.connect('button-press-event', (actor, event) => {
+                this._connect(item.actor, 'button-press-event', (actor, event) => {
                     event.stopPropagation();
                     return Clutter.EVENT_STOP;
                 });
@@ -163,7 +164,7 @@ class EthiopianCalendarIndicator extends PanelMenu.Button {
                     item.actor.add_style_class_name('popup-menu-item-checked');
 
                 // Use activate here since changing date format won't close submenu by default
-                item.connect('activate', () => {
+                this._connect(item, 'activate', () => {
                     this._extension._settings.set_string('date-format', format);
                     this._refreshDateFormatMenuItems();
                     this._updateDate();
@@ -182,12 +183,12 @@ class EthiopianCalendarIndicator extends PanelMenu.Button {
             this._extension._settings.get_boolean('show-day')
         );
 
-        showDaySwitch.connect('toggled', (item, state) => {
+        this._connect(showDaySwitch, 'toggled', (item, state) => {
             this._extension._settings.set_boolean('show-day', state);
         });
 
         // Prevent the menu from closing after toggling switch
-        showDaySwitch.actor.connect('button-press-event', (actor, event) => {
+        this._connect(showDaySwitch.actor, 'button-press-event', (actor, event) => {
             event.stopPropagation();
             return Clutter.EVENT_STOP;
         });
@@ -197,7 +198,7 @@ class EthiopianCalendarIndicator extends PanelMenu.Button {
         // Separator and Preferences menu item
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         const prefsItem = new PopupMenu.PopupMenuItem(_('Preferences'));
-        prefsItem.connect('activate', () => {
+        this._connect(prefsItem, 'activate', () => {
             this._extension.openPrefs();
         });
         this.menu.addMenuItem(prefsItem);
@@ -243,7 +244,24 @@ class EthiopianCalendarIndicator extends PanelMenu.Button {
         }
     }
 
+    _connect(emitter, signal, callback) {
+        const id = emitter.connect(signal, callback);
+        this._connectedSignals.push({ emitter, id });
+        return id;
+    }
+
     destroy() {
+        for (const { emitter, id } of this._connectedSignals) {
+            if (emitter && id) {
+                try {
+                    emitter.disconnect(id);
+                } catch (e) {
+                    // ignore disconnect failures for already-destroyed actors
+                }
+            }
+        }
+        this._connectedSignals = [];
+
         if (this._formatChangedId)
             this._extension._settings.disconnect(this._formatChangedId);
         if (this._showDayChangedId)
@@ -321,5 +339,6 @@ export default class EthiopianCalendarExtension extends Extension {
             this._indicator.destroy();
             this._indicator = null;
         }
+        this._settings = null;
     }
 }
